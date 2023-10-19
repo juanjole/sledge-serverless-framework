@@ -77,10 +77,18 @@ run_experiments() {
 
         if [ "$loadgen" = "hey" ]; then
           local arg_opt_hey=${arg_opts_hey[$workload]}
-          hey $HEY_OPTS -z "$DURATION_sec"s -c "$con" -t 0 -o csv -m POST "$arg_opt_hey" "$arg" "http://${hostname}:$port/$route" > "$results_directory/$workload.csv" 2> "$results_directory/$workload-err.dat" &
+          if "$SAMPLE_MODE"; then
+            hey $HEY_OPTS -n "$NUMBER_SAMPLES" -c "$con" -t 0 -o csv -m POST "$arg_opt_hey" "$arg" "http://${hostname}:$port/$route" > "$results_directory/$workload.csv" 2> "$results_directory/$workload-err.dat" &
+          else
+            hey $HEY_OPTS -z "$DURATION_sec"s -c "$con" -t 0 -o csv -m POST "$arg_opt_hey" "$arg" "http://${hostname}:$port/$route" > "$results_directory/$workload.csv" 2> "$results_directory/$workload-err.dat" &
+          fi
         elif [ "$loadgen" = "loadtest" ]; then
           local arg_opt_lt=${arg_opts_lt[$workload]}
-          loadtest -t "$DURATION_sec" -c "$con" --rps "$rps" "$arg_opt_lt" "$arg" "http://${hostname}:${port}/$route" > "$results_directory/$workload.dat" 2> "$results_directory/$workload-err.dat" &
+          if "$SAMPLE_MODE"; then
+            loadtest -n "$NUMBER_SAMPLES" -c "$con" --rps "$rps" "$arg_opt_lt" "$arg" "http://${hostname}:${port}/$route" > "$results_directory/$workload.dat" 2> "$results_directory/$workload-err.dat" &
+          else
+            loadtest -t "$DURATION_sec" -c "$con" --rps "$rps" "$arg_opt_lt" "$arg" "http://${hostname}:${port}/$route" > "$results_directory/$workload.dat" 2> "$results_directory/$workload-err.dat" &
+          fi
         fi
         pid="$!"
         pids+=("$pid")
