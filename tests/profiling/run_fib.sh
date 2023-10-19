@@ -13,7 +13,7 @@ declare -r FIBONACCI_WASM="fibonacci.wasm.so"
 # The global configs for the scripts
 declare -r CLIENT_TERMINATE_SERVER=true
 declare -r DURATION_sec=10
-declare -r NUMBER_SAMPLES=1000
+declare -r NUMBER_SAMPLES=100
 declare -r SAMPLE_MODE=true
 declare -r ESTIMATIONS_PERCENTILE=60
 declare -r NWORKERS=1
