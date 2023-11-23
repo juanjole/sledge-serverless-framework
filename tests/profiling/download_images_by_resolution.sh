@@ -1,3 +1,5 @@
+#!/bin/bash
+
 declare -r width=64
 declare -r height=64
 declare -r n=1000
