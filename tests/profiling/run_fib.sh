@@ -13,18 +13,18 @@ declare -r FIBONACCI_WASM="fibonacci.wasm.so"
 # The global configs for the scripts
 declare -r CLIENT_TERMINATE_SERVER=true
 declare -r DURATION_sec=10
-declare -r NUMBER_SAMPLES=100
+declare -r NUMBER_SAMPLES=200
 declare -r SAMPLE_MODE=true
 declare -r ESTIMATIONS_PERCENTILE=60
-declare -r NWORKERS=1
+declare -r NWORKERS=5
 
 # Tenant configs:
 declare -ar TENANT_IDS=("fib30" "fib36")
-declare -ar TENANT_MODES=("percentage" "percentage")
+declare -ar TENANT_MODES=("absolute" "absolute")
 declare -ar INIT_PORTS=(10000 20000)
-declare -ar ROUTES=("fib30" "fib36")
-declare -ar MTDS_REPL_PERIODS_us=(0 0 0 0)
-declare -ar MTDS_MAX_BUDGETS_us=(0 0 0 0)
+declare -ar ROUTES=("fib-30_1x1_1" "fib-36_1x1_1")
+declare -ar MTDS_REPL_PERIODS_us=(0 0)
+declare -ar MTDS_MAX_BUDGETS_us=(0 0)
 
 # Per route configs:
 declare -ar WASM_PATHS=("$FIBONACCI_WASM" "$FIBONACCI_WASM")
@@ -41,7 +41,7 @@ declare -ar ABSOLUTE_LOADS=(1 2 3 4 5 6 7 8 9 10 15 25 50 100)
 
 export SLEDGE_SCHEDULER=EDF
 export SLEDGE_DISABLE_PREEMPTION=false
-export SLEDGE_SANDBOX_PERF_LOG=$(printf "perf-%i-%s-preemption_%s.csv" "$NWORKERS" "$SLEDGE_SCHEDULER" "$([[ $SLEDGE_DISABLE_PREEMPTION = false ]] && echo "true" || echo "false")")
+export SLEDGE_SANDBOX_PERF_LOG=$(printf "fib-perf-%i-%s-preemption_%s.csv" "$NWORKERS" "$SLEDGE_SCHEDULER" "$([[ $SLEDGE_DISABLE_PREEMPTION = false ]] && echo "true" || echo "false")")
 export SLEDGE_NWORKERS=$NWORKERS
 
 run_init
