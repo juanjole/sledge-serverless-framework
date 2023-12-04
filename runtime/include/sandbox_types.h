@@ -62,6 +62,7 @@ struct sandbox {
 	uint64_t                  last_state_duration;
 
 	uint64_t absolute_deadline;
+	int payload_size;
 	uint64_t admissions_estimate; /* estimated execution time (cycles) * runtime_admissions_granularity / relative
 	                                 deadline (cycles) */
 	uint64_t total_time;          /* Total time from Request to Response */
