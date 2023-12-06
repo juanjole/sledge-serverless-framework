@@ -63,17 +63,17 @@ declare -ar ARG_OPTS_LT=("-b -b -b -b -b -b -b -b -b \
                           -B -B -B -B -B -B -B -B -B"
                          "-b -b")
 declare -ar ARGS=("images/gocr/mono_10_72dpi.pnm images/gocr/mono_10_108dpi.pnm images/gocr/mono_10_144dpi.pnm images/gocr/mono_20_72dpi.pnm images/gocr/mono_20_108dpi.pnm images/gocr/mono_20_144dpi.pnm images/gocr/mono_30_72dpi.pnm images/gocr/mono_30_108dpi.pnm images/gocr/mono_30_144dpi.pnm \
-                   images/gocr/mono/10/72dpi images/gocr/mono/10/108dpi images/gocr/mono/10/144dpi images/gocr/mono/20/72dpi images/gocr/mono/20/108dpi images/gocr/mono/20/144dpi images/gocr/mono/30/72dpi images/gocr/mono/30/108dpi images/gocr/mono/30/144dpi"
+                   images/gocr/mono/10/72dpi/pnm images/gocr/mono/10/108dpi/pnm images/gocr/mono/10/144dpi/pnm images/gocr/mono/20/72dpi/pnm images/gocr/mono/20/108dpi/pnm images/gocr/mono/20/144dpi/pnm images/gocr/mono/30/72dpi/pnm images/gocr/mono/30/108dpi/pnm images/gocr/mono/30/144dpi/pnm"
                   "images/gocr/roboto_10_72dpi.pnm images/gocr/roboto_10_108dpi.pnm images/gocr/roboto_10_144dpi.pnm images/gocr/roboto_20_72dpi.pnm images/gocr/roboto_20_108dpi.pnm images/gocr/roboto_20_144dpi.pnm images/gocr/roboto_30_72dpi.pnm images/gocr/roboto_30_108dpi.pnm images/gocr/roboto_30_144dpi.pnm \
-                  images/gocr/roboto/10/72dpi images/gocr/roboto/10/108dpi images/gocr/roboto/10/144dpi images/gocr/roboto/20/72dpi images/gocr/roboto/20/108dpi images/gocr/roboto/20/144dpi images/gocr/roboto/30/72dpi images/gocr/roboto/30/108dpi images/gocr/roboto/30/144dpi"
+                  images/gocr/roboto/10/72dpi/pnm images/gocr/roboto/10/108dpi/pnm images/gocr/roboto/10/144dpi/pnm images/gocr/roboto/20/72dpi/pnm images/gocr/roboto/20/108dpi/pnm images/gocr/roboto/20/144dpi/pnm images/gocr/roboto/30/72dpi/pnm images/gocr/roboto/30/108dpi/pnm images/gocr/roboto/30/144dpi/pnm"
                   "../gocr/handwriting/handwrt1.pnm ../gocr/hyde/hyde.pnm")
 
 declare -ar PERCENTAGE_LOADS=(25 50 75 100)
-declare -ar ABSOLUTE_LOADS=(1 2 3 4 5 6 7 8 9 10)
+declare -ar ABSOLUTE_LOADS=(1)
 
 export SLEDGE_SCHEDULER=EDF
 export SLEDGE_DISABLE_PREEMPTION=false
-export SLEDGE_SANDBOX_PERF_LOG=$(printf "gocr-perf-%i-%s-preemption_%s.csv" "$NWORKERS" "$SLEDGE_SCHEDULER" "$([[ $SLEDGE_DISABLE_PREEMPTION = false ]] && echo "true" || echo "false")")
+export SLEDGE_SANDBOX_PERF_LOG=$(printf "perf-%i-%s-preemption_%s.csv" "$NWORKERS" "$SLEDGE_SCHEDULER" "$([[ $SLEDGE_DISABLE_PREEMPTION = false ]] && echo "true" || echo "false")")
 export SLEDGE_NWORKERS=$NWORKERS
 
 run_init
