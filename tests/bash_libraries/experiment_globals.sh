@@ -167,7 +167,7 @@ run_init() {
         else
           local con=$var
         fi
-        local rps=$((1000000 * con / deadline))
+        local rps=$((1000000 / expected))
         printf "\n\t\t\tConcurrent: %i\tRPS: %i\n" "$con" "$rps"
 
         wasm_paths+=([$workload]=$wasm_path)

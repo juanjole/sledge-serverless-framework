@@ -61,10 +61,10 @@ run_experiments() {
         local deadline=${deadlines[$workload]}
         local arg=${args[$workload]}
         local con=${concurrencies[$workload]}
-        #local rps=${rpss[$workload]}
+        local rps=${rpss[$workload]}
 
         echo "CON for $workload" : "$con"
-        #echo "RPS for $workload" : "$rps"
+        echo "RPS for $workload" : "$rps"
 
         if [ "$con" -lt 1 ]; then
           echo "Concurrent load too small"
@@ -85,9 +85,9 @@ run_experiments() {
         elif [ "$loadgen" = "loadtest" ]; then
           local arg_opt_lt=${arg_opts_lt[$workload]}
           if "$SAMPLE_MODE"; then
-            loadtest -n "$NUMBER_SAMPLES" -c "$con" "$arg_opt_lt" "$arg" "http://${hostname}:${port}/$route" > "$results_directory/$workload.dat" 2> "$results_directory/$workload-err.dat" &
+            loadtest -n "$NUMBER_SAMPLES" -c 1 --rps "$rps" "$arg_opt_lt" "$arg" "http://${hostname}:${port}/$route" > "$results_directory/$workload.dat" 2> "$results_directory/$workload-err.dat" &
           else
-            loadtest -t "$DURATION_sec" -c "$con" "$arg_opt_lt" "$arg" "http://${hostname}:${port}/$route" > "$results_directory/$workload.dat" 2> "$results_directory/$workload-err.dat" &
+            loadtest -t "$DURATION_sec" -c 1 --rps "$rps" "$arg_opt_lt" "$arg" "http://${hostname}:${port}/$route" > "$results_directory/$workload.dat" 2> "$results_directory/$workload-err.dat" &
           fi
         fi
         pid="$!"
